@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>大文件切割上传</title>
+        <link rel="stylesheet" href="">
+        <script>
+            function selfile(){
+                const LENGTH = 1024 * 1024 * 10;//每次上传的大小
+                var file = document.getElementsByName('video')[0].files[0];//文件对象
+                var obj = document.getElementById('message');
+                if (file == undefined) {
+                    console.log('请选择文件')
+                    obj.innerHTML = '请选择文件';
+                    return false;
+                }
+                obj.innerHTML = '正在上传文件，请耐心等待。。。';
+                var filename=document.getElementsByName('video')[0].files[0].name;
+                var totalSize = file.size;//文件总大小
+                var start = 0;//每次上传的开始字节
+                var end = start + LENGTH;//每次上传的结尾字节
+                var fd = null//创建表单数据对象
+                var blob = null;//二进制对象
+                var xhr = null;//xhr对象
+                var i = 0;//第几节文件
+                var count_of_cut = Math.ceil(totalSize / LENGTH) ;
+                //var width = Math.floor(100 / count_of_cut);
+                while(start < totalSize){
+                    obj.innerHTML = '正在上传第' + i + '个分割的文件。。。';
+                    fd = new FormData();//每一次需要重新创建
+                    xhr = new XMLHttpRequest();//需要每次创建并设置参数
+
+                    /*xhr.onreadystatechange = function () {
+                        //readystate为4表示请求已完成并就绪
+                        if (this.readyState == 4) {
+                            document.getElementById('precent').innerHTML = this.responseText;
+                            //在进度条下方插入百分比
+                        }
+                    }
+
+                    xhr.upload.onprogress = function (ev) {
+                        //如果ev.lengthComputable为true就可以开始计算上传进度
+                        //上传进度 = 100* ev.loaded/ev.total
+                        if (ev.lengthComputable) {
+                            var precent = 100 * ev.loaded / ev.total;
+                            console.log(precent);
+                            //更改进度条，及百分比
+                            document.getElementById('bar').style.width = precent + '%';
+                            document.getElementById('precent').innerHTML = Math.floor(precent) + '%';
+                        }
+                    }*/
+
+                    //请求error
+                    xhr.addEventListener("error", uploadFailed, false);
+                    //请求中断
+                    xhr.addEventListener("abort", uploadCanceled, false);
+
+                    xhr.open('POST','https://www.luckystar.pub/static/upload.php',false);
+                    blob = file.slice(start,end);//根据长度截取每次需要上传的数据
+                    fd.append('video',blob);//添加数据到fd对象中
+                    fd.append('filename',filename); //获取文件的名称
+                    fd.append('i',i); //获取文件的名称
+                    if(i == count_of_cut - 1){
+                        //最后一个文件了
+                        fd.append('endoffile',1); //获取文件的名称
+                    }else{
+                        fd.append('endoffile',0); //获取文件的名称
+                    }
+                    xhr.send(fd);//将fd数据上传
+                    // 发送并接受返回值
+                    xhr.onreadystatechange = function () {
+                        // 这步为判断服务器是否正确响应
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            console.log(xhr.responseText);
+                        }
+                    };
+
+                    //重新设置开始和结尾
+                    start = end;
+                    end = start + LENGTH;
+                    i++;
+                    obj.innerHTML = '第' + i + '个分割的文件已上传';
+                }
+            }
+
+            function uploadFailed(evt) {
+                obj.innerHTML = '上传出错';
+            }
+
+            function uploadCanceled(evt) {
+                obj.innerHTML = '上传请求中断';
+            }
+        </script>
+    </head>
+    <body>
+        <h1>大文件切割上传</h1>
+        <input type="file" name="video" />
+        <h2 id="message">切分文件上传，10M一个，点击上传文件按钮后，上传10M文件需要4秒，大文件上传需时比较长，请耐心等待。</h2>
+        <button onclick="selfile()">上传文件</button>
+    </body>
+</html>
