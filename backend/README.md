@@ -85,19 +85,19 @@
 
 + doshboard
 
-  ![](image/5.png)
+  ![](../image/5.png)
 
 + user
 
-  ![](image/6.png)
+  ![](../image/6.png)
 
 + device
 
-  ![](image/7.png)
+  ![](../image/7.png)
 
 + permissions
 
-  ![](image/8.png)
+  ![](../image/8.png)
 ## file system
 
 ```sh

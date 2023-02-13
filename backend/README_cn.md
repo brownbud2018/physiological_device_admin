@@ -85,19 +85,19 @@
 
 + 仪表盘
 
-  ![](image/5.png)
+  ![](../image/5.png)
 
 + 用户
 
-  ![](image/6.png)
+  ![](../image/6.png)
 
 + 设备
 
-  ![](image/7.png)
+  ![](../image/7.png)
 
 + 权限
 
-  ![](image/8.png)
+  ![](../image/8.png)
 
 ## 项目目录
 
