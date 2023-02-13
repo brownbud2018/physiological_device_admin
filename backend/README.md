@@ -1,5 +1,7 @@
 # FastAPI
 
+**English** | [中文](./README_cn.md)
+
 ## version
 
 + `V1.1.0` Build FastAPI scaffold

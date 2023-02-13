@@ -1,5 +1,7 @@
 # FastAPI
 
+**中文** | [English](./README.md)
+
 ## 版本迭代
 
 + `V1.1.0` 搭建FastAPI脚手架
