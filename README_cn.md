@@ -1,5 +1,7 @@
 # FastAPI
 
+**中文** | [English](./README.md)
+
 ## 版本迭代
 
 + `V1.1.0` 搭建FastAPI脚手架
@@ -81,13 +83,21 @@
 
 ## 项目截图
 
-+ 成功运行的图片
++ 仪表盘
 
-  ![](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/image-20211021164103094.png)
+  ![](image/5.png)
 
-+ 接口图
++ 用户
 
-  ![](https://gitee.com/zxiaosi/image/raw/master/Project/Vue+FastAPI/backend-%E6%8E%A5%E5%8F%A3.png)
+  ![](image/6.png)
+
++ 设备
+
+  ![](image/7.png)
+
++ 权限
+
+  ![](image/8.png)
 
 ## 项目目录
 
